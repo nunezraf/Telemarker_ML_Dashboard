@@ -10,7 +10,7 @@ import csv
 app = Flask(__name__)
 
 # Connect to sqlite database
-engine = create_engine("sqlite:///dataset/telemarker_db.sqlite")
+engine = create_engine("sqlite:///db/telemarker_db.sqlite")
 Base = automap_base()
 Base.prepare(engine, reflect=True)
 session = Session(engine)
@@ -76,11 +76,11 @@ def metadata(customerINFO):
     # this is where ryou need to change
     for info in customer:
         if (sample_id == info.SAMPLEID):
-            sample_metadata["AGE"] = info.AGE
-            sample_metadata["BBTYPE"] = info.BBTYPE
-            sample_metadata["ETHNICITY"] = info.ETHNICITY
+            sample_metadata["CITY"] = info.City
+            sample_metadata["STATE"] = info.State
+            sample_metadata["PHONE NUMBER"] = info.Phone
             sample_metadata["GENDER"] = info.GENDER
-            sample_metadata["LOCATION"] = info.LOCATION
-            sample_metadata["SAMPLEID"] = info.SAMPLEID
+            sample_metadata["NAME"] = info.Name
+            sample_metadata["ADDRESS"] = info.Address
 
     return jsonify(sample_metadata)
