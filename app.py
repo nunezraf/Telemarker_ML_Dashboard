@@ -76,12 +76,12 @@ def metadata(customerINFO):
     # this is where ryou need to change
     for info in customer:
         if (sample_id == info.SAMPLEID):
-            sample_metadata["CITY"] = info.City
-            sample_metadata["STATE"] = info.State
-            sample_metadata["PHONE NUMBER"] = info.Phone
-            sample_metadata["GENDER"] = info.GENDER
-            sample_metadata["NAME"] = info.Name
-            sample_metadata["ADDRESS"] = info.Address
+            customer_metadata["CITY"] = info.City
+            customer_metadata["STATE"] = info.State
+            customer_metadata["PHONE NUMBER"] = info.Phone
+            customer_metadata["GENDER"] = info.GENDER
+            customer_metadata["NAME"] = info.Name
+            customer_metadata["ADDRESS"] = info.Address
 
     return jsonify(sample_metadata)
 
