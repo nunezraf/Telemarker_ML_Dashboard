@@ -84,3 +84,10 @@ def metadata(customerINFO):
             sample_metadata["ADDRESS"] = info.Address
 
     return jsonify(sample_metadata)
+
+    # Returns a list of phone services
+    @app.route("/services/<service>")
+    def services(service):
+
+        #create a sample query
+        sample_query = ""

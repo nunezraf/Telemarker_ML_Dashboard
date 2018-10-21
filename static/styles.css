@@ -1,14 +1,14 @@
 body {
     font-family: Arial, Trattatello, fantasy;
-    background-color: #00a86b ;
-    color: #3628B9;
+    background-color: #5E1B15;
+    color: #130605;
 }
 
 .jumbotron {
     font-family: Arial, Trattatello, fantasy;
-    color: #3628B9;
+    color: #130605;
     text-align: center;
-    background-color: #00a86b ;
+    background-color: #5E1B15 ;
     min-height: 400px;
 }
 
@@ -29,8 +29,10 @@ h1 {
     width: 100%;
 }
 
+/*
 #sampleMetadata {
     font-weight: bold;
+    color: #3628B9;
 }
 
 #pie {
@@ -46,4 +48,4 @@ h1 {
 #bubble {
     width: 100%;
     height: 100%;
-}
+} */
