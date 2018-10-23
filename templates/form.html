@@ -37,10 +37,11 @@
         <div class="col-md-1"></div>
         <div class="col-md-2">
             <div class="container" id="sample-select">
-                <form method="POST" action="/send">
-
-                    <label for="inputName">Customer Name</label>
-                    <input type="text" id="inputName" name="nickname">
+                <form method="POST" action="/send" role="form", name="Nameform">
+                    <div class="form-group">
+                        <label for="inputName">Customer Name</label>
+                        <input type="text" id="inputName" name="Name">
+                    </div>
                     <input type="submit" value="submit">
                 </form>
 

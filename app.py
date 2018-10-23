@@ -1,3 +1,11 @@
+import os
+from flask import (
+    Flask,
+    render_template,
+    jsonify,
+    request,
+    redirect)
+
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
@@ -24,25 +32,69 @@ session = Session(engine)
 # Storing tables# Storing tables
 Telemarker_db = Base.classes.telemarker_db
 
+class Name(db.Model):
+    __tablename__ = 'telemarkers_db'
+
+    id = db.Column(db.Integer, primary_key=True)
+    Name = db.Column(db.String(64))
+
+    def __repr__(self):
+        return '<Pet %r>' % (self.Name)
+
+
 # Returns the dashboard homepage
 @app.route("/")
 def home():
     return render_template("form.html")
 
-
+# Returns a json dictionary of sample metadata
 @app.route("/send", methods=["GET", "POST"])
-def send():
+def send(customerINFO):
     if request.method == "POST":
-        name = request.form["customerName"]
+        name = request.form["Name"]
+
+        names = Name(Name=Name)
+        db.session.add(names)
+        db.session.commit()
+    
+        # Grab input
+        customer_info = int(customerINFO.split("_")[1])
+
+        # Empty dictionary for data
+        customer_metadata = {}
+
+        # Grab telemarker db table
+        customer = session.query(Telemarker_db)
+
+    # Loop through query & grab info
+   
+        for info in customer:
+            if (sample_id == info.SAMPLEID):
+                customer_metadata["NAME"] = info.Name
+                customer_metadata["CITY"] = info.City
+                customer_metadata["ADDRESS"] = info.Address
+                customer_metadata["STATE"] = info.State
+                customer_metadata["PHONE NUMBER"] = info.Phone
+                customer_metadata["GENDER"] = info.GENDER
+           
+
+            return jsonify(customer_metadata)
+    return render_template("form.html")
+
+
+# @app.route("/send", methods=["GET", "POST"])
+# def send():
+#     if request.method == "POST":
+#         name = request.form["Name"]
         
 
-        customerName = Name(name=name)
-        db.session.add(name)
-        db.session.commit()
+#         customerName = Name(name=name)
+#         db.session.add(name)
+#         db.session.commit()
 
-        return "Thanks for the form data!"
+#         return "Thanks for the form data!"
 
-    return render_template("form.html")
+#     return render_template("form.html")
 
 
 # Returns a list of customer_ids in list format
@@ -78,32 +130,32 @@ def gender():
 
     return jsonify(customer_gender)
 
-# Returns a json dictionary of sample metadata
-@app.route("/metadata/<customer>")
-def metadata(customerINFO):
+# # Returns a json dictionary of sample metadata
+# @app.route("/metadata/<customer>")
+# def metadata(customerINFO):
     
-    # Grab input
-    customer_info = int(customerINFO.split("_")[1])
+#     # Grab input
+#     customer_info = int(customerINFO.split("_")[1])
 
-    # Empty dictionary for data
-    customer_metadata = {}
+#     # Empty dictionary for data
+#     customer_metadata = {}
 
-    # Grab telemarker db table
-    customer = session.query(Telemarker_db)
+#     # Grab telemarker db table
+#     customer = session.query(Telemarker_db)
 
-    # Loop through query & grab info
+#     # Loop through query & grab info
    
-    for info in customer:
-        if (sample_id == info.SAMPLEID):
-            customer_metadata["NAME"] = info.Name
-            customer_metadata["CITY"] = info.City
-            customer_metadata["ADDRESS"] = info.Address
-            customer_metadata["STATE"] = info.State
-            customer_metadata["PHONE NUMBER"] = info.Phone
-            customer_metadata["GENDER"] = info.GENDER
+#     for info in customer:
+#         if (sample_id == info.SAMPLEID):
+#             customer_metadata["NAME"] = info.Name
+#             customer_metadata["CITY"] = info.City
+#             customer_metadata["ADDRESS"] = info.Address
+#             customer_metadata["STATE"] = info.State
+#             customer_metadata["PHONE NUMBER"] = info.Phone
+#             customer_metadata["GENDER"] = info.GENDER
            
 
-    return jsonify(sample_metadata)
+#     return jsonify(sample_metadata)
 
     #Returns a list of phone services
     @app.route("/services/<service>")
