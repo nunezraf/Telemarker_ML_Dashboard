@@ -9,6 +9,11 @@ import csv
 # Create App
 app = Flask(__name__)
 
+from flask_sqlalchemy import SQLAlchemy
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', '') or "sqlite:///db.sqlite"
+# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', '')
+db = SQLAlchemy(app)
+
 # Connect to sqlite database
 engine = create_engine("sqlite:///db/telemarker_db.sqlite")
 Base = automap_base()
@@ -28,7 +33,7 @@ def home():
 @app.route("/send", methods=["GET", "POST"])
 def send():
     if request.method == "POST":
-        name = request.form["name"]
+        name = request.form["customerName"]
         
 
         customerName = Name(name=name)
@@ -38,6 +43,7 @@ def send():
         return "Thanks for the form data!"
 
     return render_template("form.html")
+
 
 # Returns a list of customer_ids in list format
 @app.route("/customer_ids")
