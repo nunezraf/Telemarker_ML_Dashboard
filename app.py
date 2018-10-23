@@ -18,13 +18,26 @@ session = Session(engine)
 
 # Storing tables# Storing tables
 Telemarker_db = Base.classes.telemarker_db
-# Samples = Base.classes.samples
-# Samples_Metadata = Base.classes.samples_metadata
 
 # Returns the dashboard homepage
 @app.route("/")
 def home():
-    return render_template("index.html")
+    return render_template("form.html")
+
+
+@app.route("/send", methods=["GET", "POST"])
+def send():
+    if request.method == "POST":
+        name = request.form["name"]
+        
+
+        customerName = Name(name=name)
+        db.session.add(name)
+        db.session.commit()
+
+        return "Thanks for the form data!"
+
+    return render_template("form.html")
 
 # Returns a list of customer_ids in list format
 @app.route("/customer_ids")
@@ -50,10 +63,10 @@ def gender():
     # Empty list for descriptions
     customer_gender = []
     
-    # Grab otu table
+    # Grab gender column
     results = session.query(Telemarker_db.gender)
 
-    # Loop through query & grab descriptions
+    # Loop through query & grab customer gender
     for result in results:
         customer_gender.append(str(result[0]))
 
@@ -69,25 +82,45 @@ def metadata(customerINFO):
     # Empty dictionary for data
     customer_metadata = {}
 
-    # Grab metadata table
+    # Grab telemarker db table
     customer = session.query(Telemarker_db)
 
     # Loop through query & grab info
-    # this is where ryou need to change
+   
     for info in customer:
         if (sample_id == info.SAMPLEID):
+            customer_metadata["NAME"] = info.Name
             customer_metadata["CITY"] = info.City
+            customer_metadata["ADDRESS"] = info.Address
             customer_metadata["STATE"] = info.State
             customer_metadata["PHONE NUMBER"] = info.Phone
             customer_metadata["GENDER"] = info.GENDER
-            customer_metadata["NAME"] = info.Name
-            customer_metadata["ADDRESS"] = info.Address
+           
 
     return jsonify(sample_metadata)
 
-    # Returns a list of phone services
+    #Returns a list of phone services
     @app.route("/services/<service>")
     def services(service):
 
         #create a sample query
-        sample_query = ""
+        sample_query = "customer." + service
+
+        # create empty dictionary 
+        customer_info = {}
+
+        # Grab the info
+        results = session.query(customer.cust, sample_query)
+
+        # Loop through & append
+        for result in results:
+            cust.append(results[0])
+
+        #add to the dictionary
+        customer_info = {
+            "cust" : cust,
+        }
+
+        return jsonify(customer_info)
+if __name__ == "__main__":
+    app.run(debug=True)
