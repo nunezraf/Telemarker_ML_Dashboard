@@ -1,18 +1,18 @@
 import os
-
 import pandas as pd
 import numpy as np
-
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine
-
 from flask import Flask, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 
-app = Flask(__name__)
+#################################################
+# Flask Setup
+#################################################
 
+app = Flask(__name__)
 
 #################################################
 # Database Setup
@@ -28,27 +28,27 @@ Base.prepare(db.engine, reflect=True)
 
 # Save references to each table
 Telemarkers = Base.classes.telemarker_db
-# field1s = Base.classes.field1s
+# cust_ids = Base.classes.cust_ids
 
 @app.route("/")
 def index():
     """Return the homepage."""
     return render_template("index.html")
 
-@app.route("/names")
-def names():
-    """Return a list of field1 names."""
+@app.route("/id")
+def id():
+    """Return a list of customer id."""
 
     # Use Pandas to perform the sql query
     stmt = db.session.query(Telemarkers).statement
     df = pd.read_sql_query(stmt, db.session.bind)
 
-    # Return a list of the column names (field1 names)
+    # Return a list of the column names (customer id)
     return jsonify(list(df["customerID"]))
 
-@app.route("/metadata/<field1>")
-def telemarker_db(field1):
-    """Return the MetaData for a given field1."""
+@app.route("/metadata/<cust_id>")
+def telemarker_db(cust_id):
+    """Return the MetaData for a given cust_id."""
     sel = [
         Telemarkers.customerID,	
         Telemarkers.gender,
@@ -79,7 +79,7 @@ def telemarker_db(field1):
 
     ]
 
-    results = db.session.query(*sel).filter(Telemarkers.field1 == field1).all()
+    results = db.session.query(*sel).filter(Telemarkers.cust_id == cust_id).all()
 
     # Create a dictionary entry for each row of metadata information
     telemarker_db = {}
@@ -113,25 +113,6 @@ def telemarker_db(field1):
 
     print(telemarker_db)
     return jsonify(telemarker_db)
-
-
-# @app.route("/field1s/<field1>")
-# def field1s(field1):
-#     """Return `otu_ids`, `otu_labels`,and `field1_values`."""
-#     stmt = db.session.query(field1s).statement
-#     df = pd.read_sql_query(stmt, db.session.bind)
-
-#     # Filter the data based on the field1 number and
-#     # only keep rows with values above 1
-#     field1_data = df.loc[df[field1] > 1, ["otu_id", "otu_label", field1]]
-#     # Format the data to send as json
-#     data = {
-#         "otu_ids": field1_data.otu_id.values.tolist(),
-#         "field1_values": field1_data[field1].values.tolist(),
-#         "otu_labels": field1_data.otu_label.tolist(),
-#     }
-#     return jsonify(data)
-
 
 if __name__ == "__main__":
     app.run()
