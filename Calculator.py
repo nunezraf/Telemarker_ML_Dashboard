@@ -36,8 +36,8 @@ def compare_scenario(customer_id):
     scenario = {}
     for i in range(23):
         _input.iloc[:,i] = 1-_input.iloc[:,i]
-        scenario[columns[i]+" to "+change_to_YN(_input.iloc[:,i].values[0])] = calculate(_input)
-    return(scenario)
+        scenario[columns[i]+" to "+change_to_YN(_input.iloc[:,i].values[0])] = str(round(origin_prob(customer_id) - calculate(_input),4))+"%"
+    print(scenario)
 
 origin_prob("6713-OKOMC")
 compare_scenario("6713-OKOMC")
