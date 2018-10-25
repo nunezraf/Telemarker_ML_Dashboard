@@ -7,17 +7,13 @@ function buildMetadata(customerID) {
   // Use `d3.json` to fetch the metadata for a sample
     // Use d3 to select the panel with id of `#sample-metadata`
     var panel = d3.select("#sample-metadata");
-    var features = d3.select("#sample-features");
     
     // Use `.html("") to clear any existing metadata
     panel.html("");
-    features.html("");
+
     // Use `Object.entries` to add each key and value pair to the panel
     Object.entries(data).forEach(([key, value]) => {
       panel.append("h6").text(`${key} : ${value}`);
-    });
-    Object.entries(data).forEach(([key, value]) => {
-      features.append("h6").text(`${key} : ${value}`);
     });  
   
   // d3.json(`/samples/${customerID}`).then((data) => {
@@ -50,7 +46,7 @@ function init() {
  // Use the first sample from the list to build the initial plots
      const firstSample = sampleNames[0];
      buildMetadata(firstSample);
-  });
+  }); 
 }
 
 function optionChanged(newSample) {
@@ -61,3 +57,41 @@ function optionChanged(newSample) {
 
 // Initialize the dashboard
 init();
+
+
+
+
+// from data.js
+var tableData = data;
+// from data.js
+console.log("this has loaded!")
+var tableData = data;
+// Select table
+var tbody = d3.select("tbody");
+function buildTable(data) {
+   tbody.html("");
+   data.forEach((dataRow)=> {
+       var row = tbody.append("tr");
+       Object.values(dataRow).forEach((val)=>{
+           var cell = row.append("td");
+               cell.text(val);
+       });
+   });
+};
+function handleClick() {
+   d3.event.preventDefault();
+   var date = d3.select("#datetime").property("value");
+   console.log(date)
+   var filteredData = data
+   // TableData.filter(row=>row.datetime === date);
+   if (date){
+       filteredData = filteredData.filter(record => record.datetime === date);
+   }
+   console.log(filteredData);
+   buildTable(filteredData);
+}
+d3.select("#filter-btn").on("click", handleClick);
+buildTable(data);
+
+
+

@@ -32,17 +32,44 @@
           <div id="sample-metadata" class="panel-body"></div>
         </div>
       </div>
-    <div class="row">
-      <div class="col-md-4">
-        <div class="panel panel-primary">
-          <div class="panel-heading">
-            <h3 class="panel-title">Features</h3>
-          </div>
-          <div id="sample-features" class="panel-body"></div>
-        </div>
-      </div>
       <div class="col-md-5">
-        <div id="pie"></div>
+        <div id="table-area" class="">
+           <table id="ufo-table" class="table table-striped">
+             <thead>
+               <tr>
+                 <th class="table-head">Gender</th>
+                 <th class="table-head">Senior Citizen</th>
+                 <th class="table-head">Partner</th>
+                 <th class="table-head">Dependence</th>
+                 <th class="table-head">Phone Service</th>
+                 <th class="table-head">Multiple Lines</th>
+                 <th class="table-head">Online Security</th>
+                 <th class="table-head">Online Backup</th>
+                 <th class="table-head">Device Protection</th>
+                 <th class="table-head">Tech Support</th>
+                 <th class="table-head">Streaming TV</th>
+                 <th class="table-head">Streaming Movies</th>
+                 <th class="table-head">Paperless Bill</th>
+                 <th class="table-head">Internet Service [DSL]</th>
+                 <th class="table-head">Internet Service [Fiber Optic]</th>
+                 <th class="table-head">Internet Service [No]</th>
+                 <th class="table-head">Contract [Month to Month]</th>
+                 <th class="table-head">Contract [one year]</th>
+                 <th class="table-head">Contract [ two year]</th>
+                 <th class="table-head">Payment Method [Bank Transfer-Automatic]</th>
+                 <th class="table-head">Payment Method [Credict Card-Automatic]</th>
+                 <th class="table-head">Payment Method [Electronic Check]</th>
+                 <th class="table-head">Payment Method [Mailed Check]</th>
+                 <th class="table-head">Tenure</th>
+                 <th class="table-head">Monthly Charges</th>
+                 <th class="table-head">Total Chargers</th>
+               </tr>
+             </thead>
+             <tbody></tbody>
+           </table>
+         </div>
+       </div>
+        <div id="table-area" class=""></div>
       </div>
       <div class="col-md-5">
         <div id="gauge"></div>
@@ -62,6 +89,11 @@
   
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <script src="{{ url_for('static', filename='js/styles.css') }}"></script>
+  <script src="{{ url_for('static', filename='js/data.js') }}"></script>
+  <script type="text/javascript" src="static/js/app.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>  
+<script>
+
   
 </body>
 
