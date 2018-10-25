@@ -79,26 +79,6 @@
   <script src="{{ url_for('static', filename='js/styles.css') }}"></script>
   <script src="{{ url_for('static', filename='js/data.js') }}"></script>
   <script type="text/javascript" src="static/js/app.js"></script>
-  
-  <div class="row">
-    <div class="col-md-10">
-      <div class="panel1 panel1-primary">
-              <div class="panel1-heading">
-                <h3 class="panel1-title">Calculation</h3>
-                    <button id="btn">Calculate</button>
-                      <div id="response"></div>
-                        <script src="https://code.jquery.com/jquery-3.2.1.min.js"integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="crossorigin="anonymous"></script>
-                         <script type="text/javascript">
-                            $('button#btn').click(function(){
-                            $.ajax({
-                              url: "/_get_data/",
-                              type: "POST",
-                              success: function(origin_prob){
-                                $('div#response').append(origin_prob.data);
-                    }
-                  });
-                });
-        </script>
 
   
 </body>

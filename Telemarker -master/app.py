@@ -42,6 +42,7 @@ def compare_scenario(customer_id):
     columns = df.columns
     scenario = {}
     for i in range(23):
+        _input = df.loc[[customer_id]]
         _input.iloc[:,i] = 1-_input.iloc[:,i]
         scenario[columns[i]+" to "+change_to_YN(_input.iloc[:,i].values[0])] = str(round(origin_prob(customer_id) - calculate(_input),4))+"%"
     print(scenario)
@@ -167,7 +168,7 @@ def samples(customerID):
         # "otu_labels": sample_data.otu_label.tolist(),
     }
     return jsonify(data)
-@app.route('/_get_data/', methods=['POST'])
+@app.route('/_get_data/')
 def origin_prob(customer_id):
    output = calculate(df.loc[[customer_id]])
    return jsonify({'data': render_template('response.html', output=output)})

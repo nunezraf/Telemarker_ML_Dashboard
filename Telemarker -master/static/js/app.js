@@ -29,7 +29,7 @@ function buildMetadata(customerID) {
 
       // Use d3.json to fetch get_data 
 
-      var panel1 = d3.select("#btn");
+      var panel1 = d3.select("#table-area");
 
       panel1.html("");
 
