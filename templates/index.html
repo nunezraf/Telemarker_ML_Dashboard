@@ -90,9 +90,34 @@
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <script src="{{ url_for('static', filename='js/styles.css') }}"></script>
   <script src="{{ url_for('static', filename='js/data.js') }}"></script>
-  <script type="text/javascript" src="static/js/app.js"></script>
-<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>  
-<script>
+  
+  <button id="btn">Click to Calculate</button>
+
+  <div id="response"></div>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="crossorigin="anonymous"></script>
+  <script type="text/javascript">
+
+      $('button#btn').click(function(){
+
+        $.ajax({
+
+            url: "/_get_data/",
+
+            type: "POST",
+
+            success: function(resp){
+
+                $('div#response').append(resp.data);
+
+            }
+
+        });
+
+      });
+
+  </script>
+
 
   
 </body>

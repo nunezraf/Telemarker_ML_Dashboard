@@ -25,25 +25,25 @@ def change_to_YN(value):
 
 #Calculate Original %
 
-# def origin_prob(customer_id):
-#     output = calculate(df.loc[[customer_id]])
-#     return(output)
+def origin_prob(customer_id):
+    output = calculate(df.loc[[customer_id]])
+    return(output)
     
 
-# def compare_scenario(customer_id):
-#     _input = df.loc[[customer_id]]
-#     columns = df.columns
-#     scenario = {}
-#     for i in range(23):
-#         _input.iloc[:,i] = 1-_input.iloc[:,i]
-#         scenario[columns[i]+" to "+change_to_YN(_input.iloc[:,i].values[0])] = str(round(origin_prob(customer_id) - calculate(_input),4))+"%"
-#     print(scenario)
+def compare_scenario(customer_id):
+    _input = df.loc[[customer_id]]
+    columns = df.columns
+    scenario = {}
+    for i in range(23):
+        _input.iloc[:,i] = 1-_input.iloc[:,i]
+        scenario[columns[i]+" to "+change_to_YN(_input.iloc[:,i].values[0])] = str(round(origin_prob(customer_id) - calculate(_input),4))+"%"
+    print(scenario)
 
-# origin_prob("6713-OKOMC")
-# compare_scenario("6713-OKOMC")
+origin_prob("6713-OKOMC")
+compare_scenario("6713-OKOMC")
 
-# importing dependencies to render calculations to HTML
-from flask import flas, render_template, jsonify
+#importing dependencies to render calculations to HTML
+from flask import Flask, render_template, jsonify
 
 app = Flask(__name__)
 
