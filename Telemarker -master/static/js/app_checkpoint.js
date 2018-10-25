@@ -31,18 +31,9 @@ function calculator(customerID) {
 
       // Use d3.json to fetch get_data 
     var tbody = d3.select("tbody");
-    var thead = d3.select("thead");
 
     tbody.html("");
-    thead.html("");
 
-    var header = tbody.append("tr");    
-    Object.entries(output).forEach(([key,value]) => {
-      // table.append("th").text(`${key} : ${value} `);
-      var column = header.append("th");
-      column.text(key);
-    });
-    
     var row = tbody.append("tr");
 
     Object.values(output).forEach((value) => {

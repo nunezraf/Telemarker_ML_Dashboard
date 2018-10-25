@@ -32,23 +32,24 @@ def change_to_YN(value):
 
 #Calculate Original %
 
-def origin_prob(customer_id):
-    output = calculate(df.loc[[customer_id]])
+def origin_prob(customerID):
+    output = calculate(df.loc[[customerID]])
     return(output)
     
 
-def compare_scenario(customer_id):
-    _input = df.loc[[customer_id]]
+def compare_scenario(customerID):
+    _input = df.loc[[customerID]]
     columns = df.columns
     scenario = {}
     for i in range(23):
-        _input = df.loc[[customer_id]]
+        _input = df.loc[[customerID]]
         _input.iloc[:,i] = 1-_input.iloc[:,i]
-        scenario[columns[i]+" to "+change_to_YN(_input.iloc[:,i].values[0])] = str(round(origin_prob(customer_id) - calculate(_input),4))+"%"
-    print(scenario)
+        scenario[columns[i]+" to "+change_to_YN(_input.iloc[:,i].values[0])] = str(round(origin_prob(customerID) - calculate(_input),4))+"%"
+    # print(scenario)
+    return scenario
 
-origin_prob("6713-OKOMC")
-compare_scenario("6713-OKOMC")
+# origin_prob("6713-OKOMC")
+# compare_scenario("6713-OKOMC")
 
 
 #################################################
@@ -168,12 +169,17 @@ def samples(customerID):
         # "otu_labels": sample_data.otu_label.tolist(),
     }
     return jsonify(data)
-@app.route('/_get_data/')
-def origin_prob(customer_id):
-   output = calculate(df.loc[[customer_id]])
-   return jsonify({'data': render_template('response.html', output=output)})
+@app.route('/_get_data/<customerID>')
+def get_data_customer(customerID):
 
- 
+   output =  compare_scenario(customerID)
+   return jsonify(output)
+
+@app.route('/churn/<customerID>')
+def get_churn(customerID):
+
+     churn = origin_prob(customerID)
+     return jsonify(churn)
 
 if __name__ == "__main__":
     app.run(debug=True)
