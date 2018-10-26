@@ -29,6 +29,17 @@ h1 {
     width: 100%;
 }
 
+.container {
+    font-family: Arial, Trattatello, fantasy;
+    color: #130605;
+    text-align: center;
+    background-color: #5E1B15 ;
+    min-height: 400px;
+
+}
+
+
+
 /* cxee213
 #sampleMetadata {
     font-weight: bold;

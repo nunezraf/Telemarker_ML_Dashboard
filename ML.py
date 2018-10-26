@@ -35,7 +35,7 @@ def ML_model():
 
     ########Bring in the DATA!###########
 
-    telcom = pd.read_csv("db/telemarker_db.csv")
+    telcom = pd.read_csv("dataset/Telemarker.csv")
 
     #######Data Cleaning Process#########
 

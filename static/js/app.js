@@ -7,25 +7,72 @@ function buildMetadata(customerID) {
   // Use `d3.json` to fetch the metadata for a sample
     // Use d3 to select the panel with id of `#sample-metadata`
     var panel = d3.select("#sample-metadata");
+   
     
     // Use `.html("") to clear any existing metadata
     panel.html("");
-
+   
     // Use `Object.entries` to add each key and value pair to the panel
     Object.entries(data).forEach(([key, value]) => {
       panel.append("h6").text(`${key} : ${value}`);
-    });  
-  
+    });
+}); 
+}
+     
   // d3.json(`/samples/${customerID}`).then((data) => {
   //   console.log("data from /samples/:id", data)
 
   //   var sample_values = data.sample_values;
   // });
 
+function calculator(customerID) {
+  d3.json(`/_get_data/${customerID}`).then((output) => {
+    // console.log(" data from /_get_data/:id", output)
 
- 
-}); 
+      // Use d3.json to fetch get_data 
+    var tbody = d3.select("tbody");
+    var thead = d3.select("thead");
 
+    tbody.html("");
+    thead.html("");
+
+    var header = tbody.append("tr");    
+    Object.entries(output).forEach(([key,value]) => {
+      // table.append("th").text(`${key} : ${value} `);
+      var column = header.append("th");
+      column.text(key);
+    });
+    
+    var row = tbody.append("tr");
+
+    Object.values(output).forEach((value) => {
+      // table.append("th").text(`${key} : ${value} `);
+      var cell = row.append("td");
+      cell.text(value);
+    });
+  });
+}
+// original churn 
+function churn(customerID) {
+  d3.json(`/churn/${customerID}`).then((churn) => {
+    console.log(" data from /churn/:id", churn)
+
+      // Use d3.json to fetch get_data 
+
+    var churn_value = d3.select("#churn");
+
+    churn_value.html("");
+
+    var churnrow = churn_value.html(`<h1>${churn}%  `);
+
+    // Object.values(churn).forEach((value) => {
+    //   var temp = churn_value.append("h6");
+    //   temp.text(value)
+    //   // churn_value.append("h6").text(`${value} `);
+    //   // var cell = churnrow.append("td");
+    //   // cell.text(value);
+    // });
+  });
 }
 
 
@@ -46,52 +93,18 @@ function init() {
  // Use the first sample from the list to build the initial plots
      const firstSample = sampleNames[0];
      buildMetadata(firstSample);
-  }); 
+     calculator(firstSample);
+     churn(firstSample);
+  });
 }
 
 function optionChanged(newSample) {
 // Fetch new data each time a new sample is selected
    buildMetadata(newSample);
+   calculator(newSample);
+   churn(newSample);
  }
 
 
 // Initialize the dashboard
 init();
-
-
-
-
-// from data.js
-var tableData = data;
-// from data.js
-console.log("this has loaded!")
-var tableData = data;
-// Select table
-var tbody = d3.select("tbody");
-function buildTable(data) {
-   tbody.html("");
-   data.forEach((dataRow)=> {
-       var row = tbody.append("tr");
-       Object.values(dataRow).forEach((val)=>{
-           var cell = row.append("td");
-               cell.text(val);
-       });
-   });
-};
-function handleClick() {
-   d3.event.preventDefault();
-   var date = d3.select("#datetime").property("value");
-   console.log(date)
-   var filteredData = data
-   // TableData.filter(row=>row.datetime === date);
-   if (date){
-       filteredData = filteredData.filter(record => record.datetime === date);
-   }
-   console.log(filteredData);
-   buildTable(filteredData);
-}
-d3.select("#filter-btn").on("click", handleClick);
-buildTable(data);
-
-
-
