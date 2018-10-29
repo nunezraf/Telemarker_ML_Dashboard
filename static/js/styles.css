@@ -1,0 +1,48 @@
+body {
+    font-family: Arial, Trattatello, fantasy;
+    background-color: #5E1B15;
+    color: #130605;
+}
+
+.jumbotron {
+    font-family: Arial, Trattatello, fantasy;
+    color: #130605;
+    text-align: center;
+    background-color: #5E1B15 ;
+    min-height: 400px;
+}
+
+h1 {
+    font-size: 50px;
+    font-weight: bold;
+}
+
+.panel-heading {
+    text-align: center;
+    font-size: 25px;
+    color: black;
+}
+
+#sample-select {
+    text-align: center;
+    background-color: aliceblue;
+    width: 100%;
+}
+
+.container {
+    font-family: Arial, Trattatello, fantasy;
+    color: #130605;
+    text-align: center;
+    background-color: #5E1B15 ;
+    min-height: 400px;
+
+}
+
+
+
+/* cxee213
+#sampleMetadata {
+    font-weight: bold;
+    color: #3628B9;
+} */
+
