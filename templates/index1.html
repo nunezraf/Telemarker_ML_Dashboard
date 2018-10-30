@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Telemarker Dashboard</title>
+
+    <!-- Latest compiled and minified CSS & JS -->
+    <link rel="stylesheet" media="screen" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    
+    <link rel="stylesheet" href="../static/styles.css">
+    
+</head>
+<body>
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div class="jumbotron">
+                <div class="container">
+                    <h1>Telemarker</h1>
+                    <h1>Dashboard</h1>
+                    <br>
+                    <p>Use the interactive charts below to explore the dataset</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2">
+            <div class="container" id="sample-select">
+                <h2>Select Sample</h2>
+                <br>
+                <div class="dropdown">
+                    <select id="selDataset" onchange="optionChanged(this.value)"></select>
+                </div>
+                <br>
+                <br>
+            </div>
+            <br>
+            <div class="first-panel">
+                <div class="panel panel-info">
+                    <div class="panel panel-heading">
+                        Telemarker Database
+                    </div>
+                    <div class="panel panel-body" id="sampleMetadata"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div id="pie"></div>
+        </div>
+        <div class="col-md-4">
+            <h2 style="text-align: center; font-weight: bold;">Telemarker database</h2>
+            <div id="gauge"></div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div id="bubble"></div>
+        </div>
+    </div>
+    
+<!--     <script src="../static/data.js"></script> -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+    
+</body>
+</html>
